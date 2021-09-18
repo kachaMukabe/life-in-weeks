@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lorca App</title>
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 id="textField"></h1>
+    <div class="graph">
+      <ul class="week"></ul>
+      <ul class="age"></ul>
+      <ul class="squares"></ul>
+    </div>
+    <script>
+      (async () => {
+        try {
+          let userName = await getUserName();
+          document.getElementById("textField").innerText = `Hello, ${userName}`;
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+      (async () => {
+        try {
+          let record = await getSettings();
+          console.log(record);
+          console.log(record.Name);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+      const weeks = document.querySelector(".week");
+      for (var i = 1; i <= 52; i++) {
+        weeks.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
+      }
+      const ages = document.querySelector(".age");
+      for (var i = 0; i < 90; i++) {
+        ages.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
+      }
+      const squares = document.querySelector(".squares");
+      for (var i = 0; i < 4680; i++) {
+        const level = Math.floor(Math.random() * 3);
+        squares.insertAdjacentHTML(
+          "beforeend",
+          `<li data-level="${level}"></li>`
+        );
+      }
+    </script>
+  </body>
+</html>
