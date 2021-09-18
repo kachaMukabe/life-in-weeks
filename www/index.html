@@ -21,11 +21,26 @@
           console.error(e);
         }
       })();
+      let dob;
       (async () => {
         try {
           let record = await getSettings();
-          console.log(record);
-          console.log(record.Name);
+          let weeks = await getWeeksDone();
+          console.log(weeks);
+          dob = new Date(record.DOB);
+          const squares = document.querySelector(".squares");
+          for (var i = 0; i < weeks; i++) {
+            squares.insertAdjacentHTML(
+              "beforeend",
+              `<li data-level="done"></li>`
+            );
+          }
+          for (var i = 0; i < 4680 - weeks; i++) {
+            squares.insertAdjacentHTML(
+              "beforeend",
+              `<li data-level="incomplete"></li>`
+            );
+          }
         } catch (e) {
           console.error(e);
         }
@@ -37,14 +52,6 @@
       const ages = document.querySelector(".age");
       for (var i = 0; i < 90; i++) {
         ages.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
-      }
-      const squares = document.querySelector(".squares");
-      for (var i = 0; i < 4680; i++) {
-        const level = Math.floor(Math.random() * 3);
-        squares.insertAdjacentHTML(
-          "beforeend",
-          `<li data-level="${level}"></li>`
-        );
       }
     </script>
   </body>

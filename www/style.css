@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: #ffa177ff;
+  background-color: #fcf6f5ff;
 }
 
 ul {
@@ -66,5 +66,9 @@ body {
 }
 
 .squares li {
-  background-color: #f5c7b8ff;
+  background-color: #edc2d8ff;
+}
+
+.squares li[data-level="done"] {
+  background-color: #8abad3ff;
 }

@@ -89,10 +89,19 @@ func readSettings() Record {
 
 }
 
+func getWeeksDone() int {
+	record := readSettings()
+	t1 := record.DOB
+	t2 := time.Now()
+	days := t2.Sub(t1).Hours() / 24
+	return int(days / 7)
+}
+
 func main() {
 	ui, err := lorca.New("", "", 800, 600)
 	ui.Bind("getUserName", getUserName)
 	ui.Bind("getSettings", readSettings)
+	ui.Bind("getWeeksDone", getWeeksDone)
 
 	if err != nil {
 		log.Fatal(err)
@@ -100,7 +109,7 @@ func main() {
 	createSettings("settings.yaml")
 	createSettings("notes.yaml")
 
-	config := Config{Record: Record{Name: "Kacha Mukabe", C1: "#ee333"}}
+	config := Config{Record: Record{Name: "Kacha Mukabe", DOB: time.Date(2008, time.July, 8, 1, 0, 0, 0, time.UTC), C1: "#ee333"}}
 	writeSettings(&config)
 
 	//readSettings()
