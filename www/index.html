@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1 id="textField"></h1>
+    <a href="settings.html">Go here</a>
     <div class="graph">
       <ul class="week"></ul>
       <ul class="age"></ul>
@@ -22,7 +23,7 @@
         }
       })();
       let dob;
-      (async () => {
+      const setScreen = async () => {
         try {
           let record = await getSettings();
           let weeks = await getWeeksDone();
@@ -44,7 +45,8 @@
         } catch (e) {
           console.error(e);
         }
-      })();
+      };
+      setScreen();
       const weeks = document.querySelector(".week");
       for (var i = 1; i <= 52; i++) {
         weeks.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
