@@ -15,11 +15,12 @@ import (
 )
 
 type Record struct {
-	Name string
-	DOB  time.Time
-	C1   string
-	C2   string
-	C3   string
+	Name  string
+	DOB   time.Time
+	C1    string
+	C2    string
+	C3    string
+	IsSet bool
 }
 
 type Config struct {
@@ -39,6 +40,13 @@ func getUserName() string {
 		envKey = "USER"
 	}
 	return os.Getenv(envKey)
+}
+
+func isUserSet() bool {
+	record := readSettings()
+	isZero := record.DOB.IsZero()
+	return !(isZero)
+
 }
 
 func createSettings(filename string) {
@@ -102,6 +110,7 @@ func main() {
 	ui.Bind("getUserName", getUserName)
 	ui.Bind("getSettings", readSettings)
 	ui.Bind("getWeeksDone", getWeeksDone)
+	ui.Bind("isUserSet", isUserSet)
 
 	if err != nil {
 		log.Fatal(err)
@@ -109,7 +118,7 @@ func main() {
 	createSettings("settings.yaml")
 	createSettings("notes.yaml")
 
-	config := Config{Record: Record{Name: "Kacha Mukabe", DOB: time.Date(2008, time.July, 8, 1, 0, 0, 0, time.UTC), C1: "#ee333"}}
+	config := Config{Record: Record{Name: "Kacha Mukabe", C1: "#ee333"}}
 	writeSettings(&config)
 
 	//readSettings()

@@ -13,7 +13,31 @@
       <ul class="age"></ul>
       <ul class="squares"></ul>
     </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <p>Enter date of birth</p>
+        <form>
+          <input type="date" placeholder="Enter date of birth" />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
     <script>
+      const initCheck = async () => {
+        try {
+          let isSet = await isUserSet();
+          if (isSet) {
+            setScreen();
+          } else {
+            let modal = document.getElementById("myModal");
+            modal.style.display = "block";
+          }
+          console.log(isSet);
+          return isSet;
+        } catch (e) {
+          console.error(e);
+        }
+      };
       (async () => {
         try {
           let userName = await getUserName();
@@ -22,6 +46,7 @@
           console.error(e);
         }
       })();
+      initCheck();
       let dob;
       const setScreen = async () => {
         try {
@@ -46,7 +71,6 @@
           console.error(e);
         }
       };
-      setScreen();
       const weeks = document.querySelector(".week");
       for (var i = 1; i <= 52; i++) {
         weeks.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
