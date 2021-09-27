@@ -1,7 +1,7 @@
 record:
-  name: Kacha Mukabe
-  dob: 0001-01-01T00:00:00Z
-  c1: '#ee333'
+  name: ""
+  dob: 2021-09-10T00:00:00Z
+  c1: ""
   c2: ""
   c3: ""
   isset: false

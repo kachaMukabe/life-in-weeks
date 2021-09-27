@@ -16,20 +16,20 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <p>Enter date of birth</p>
-        <form>
-          <input type="date" placeholder="Enter date of birth" />
+        <form id="myForm">
+          <input name="dob" type="date" placeholder="Enter date of birth" />
           <input type="submit" value="Submit" />
         </form>
       </div>
     </div>
     <script>
+      let modal = document.getElementById("myModal");
       const initCheck = async () => {
         try {
           let isSet = await isUserSet();
           if (isSet) {
             setScreen();
           } else {
-            let modal = document.getElementById("myModal");
             modal.style.display = "block";
           }
           console.log(isSet);
@@ -48,6 +48,14 @@
       })();
       initCheck();
       let dob;
+      const form = document.getElementById("myForm");
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        console.log("Test mmeeeee", event);
+        modal.style.display = "none";
+        console.log(form["dob"].value);
+        await updateDOB(form["dob"].value);
+      });
       const setScreen = async () => {
         try {
           let record = await getSettings();

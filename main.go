@@ -97,6 +97,15 @@ func readSettings() Record {
 
 }
 
+func updateDOB(dob string) {
+	pdob, err := time.Parse("2006-01-02", dob)
+	if err != nil {
+		log.Fatal(err)
+	}
+	config := Config{Record: Record{DOB: pdob}}
+	writeSettings(&config)
+}
+
 func getWeeksDone() int {
 	record := readSettings()
 	t1 := record.DOB
@@ -111,6 +120,7 @@ func main() {
 	ui.Bind("getSettings", readSettings)
 	ui.Bind("getWeeksDone", getWeeksDone)
 	ui.Bind("isUserSet", isUserSet)
+	ui.Bind("updateDOB", updateDOB)
 
 	if err != nil {
 		log.Fatal(err)
