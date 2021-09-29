@@ -54,14 +54,14 @@
         console.log("Test mmeeeee", event);
         modal.style.display = "none";
         console.log(form["dob"].value);
-        await updateDOB(form["dob"].value);
+        let record = await getSettings();
+        await updateDOB(record.Name, form["dob"].value, record.Colors);
+        setScreen();
       });
       const setScreen = async () => {
         try {
-          let record = await getSettings();
           let weeks = await getWeeksDone();
           console.log(weeks);
-          dob = new Date(record.DOB);
           const squares = document.querySelector(".squares");
           for (var i = 0; i < weeks; i++) {
             squares.insertAdjacentHTML(

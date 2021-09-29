@@ -1,7 +1,7 @@
 record:
-  name: ""
-  dob: 2021-09-10T00:00:00Z
-  c1: ""
+  name: Kacha Mukabe
+  dob: 1992-07-08T00:00:00Z
+  colors: '#ee333'
   c2: ""
   c3: ""
   isset: false

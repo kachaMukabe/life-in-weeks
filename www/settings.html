@@ -8,10 +8,38 @@
   <body>
     <a href="index.html">Go back</a>
     <p>This is the settings page</p>
-    <form>
-      <input placeholder="Name" type="text" />
-      <input type="date" placeholder="DOB" />
+    <form id="myForm">
+      <input placeholder="Name" name="name" id="name" type="text" />
+      <input type="date" id="dob" name="dob" placeholder="DOB" />
+      <input type="text" id="colors" name="colors" />
       <input type="submit" value="Submit" />
     </form>
+    <script type="text/javascript">
+      (async () => {
+        try {
+          let details = await getSettings();
+          document.getElementById("name").value = details.Name;
+          document.getElementById("dob").value = details.DOB.split("T")[0];
+          document.getElementById("colors").value = details.Colors;
+          console.log(details);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+      const form = document.getElementById("myForm");
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        console.log(
+          form["dob"].value,
+          form["name"].value,
+          form["colors"].value
+        );
+        await updateDOB(
+          form["name"].value,
+          form["dob"].value,
+          form["colors"].value
+        );
+      });
+    </script>
   </body>
 </html>

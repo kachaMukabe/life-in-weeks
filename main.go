@@ -15,12 +15,12 @@ import (
 )
 
 type Record struct {
-	Name  string
-	DOB   time.Time
-	C1    string
-	C2    string
-	C3    string
-	IsSet bool
+	Name   string
+	DOB    time.Time
+	Colors string
+	C2     string
+	C3     string
+	IsSet  bool
 }
 
 type Config struct {
@@ -92,17 +92,21 @@ func readSettings() Record {
 		fmt.Printf("%s: %s\n", k, v)
 		fmt.Printf(v.Name)
 	}
-	fmt.Printf("%s", data["record"])
 	return data["record"]
 
 }
 
-func updateDOB(dob string) {
+func updateDOB(name string, dob string, colors string) {
 	pdob, err := time.Parse("2006-01-02", dob)
 	if err != nil {
 		log.Fatal(err)
 	}
-	config := Config{Record: Record{DOB: pdob}}
+	record := readSettings()
+	record.Name = name
+	record.DOB = pdob
+	record.Colors = colors
+	fmt.Printf("%s", record)
+	config := Config{Record: record}
 	writeSettings(&config)
 }
 
@@ -128,8 +132,8 @@ func main() {
 	createSettings("settings.yaml")
 	createSettings("notes.yaml")
 
-	config := Config{Record: Record{Name: "Kacha Mukabe", C1: "#ee333"}}
-	writeSettings(&config)
+	//config := Config{Record: Record{Name: "Kacha Mukabe", Colors: "#ee333"}}
+	//writeSettings(&config)
 
 	//readSettings()
 
