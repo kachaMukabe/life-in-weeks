@@ -119,7 +119,7 @@ func getWeeksDone() int {
 }
 
 func main() {
-	ui, err := lorca.New("", "", 800, 600)
+	ui, err := lorca.New("", "", 850, 600)
 	ui.Bind("getUserName", getUserName)
 	ui.Bind("getSettings", readSettings)
 	ui.Bind("getWeeksDone", getWeeksDone)

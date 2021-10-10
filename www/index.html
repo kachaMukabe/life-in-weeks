@@ -1,92 +1,78 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lorca App</title>
+    <title>Memento Mori: Your life in weeks</title>
     <link rel="shortcut icon" href="favicon.png" />
     <link rel="stylesheet" href="style.css" />
+    <meta property="og:site_name" content="MementoMori" />
+    <meta property="og:title" content="Memento Mori: Live life" />
+
+    <meta
+      property="snap:sticker"
+      content="https://www.google.com/url?sa=i&url=https%3A%2F%2Fkongres-magazine.eu%2F2017%2F07%2Fi-get-social-media-account%2Finstagram-logo-400x400%2F&psig=AOvVaw3q44H6zikXHQYCmTaOjkVN&ust=1633423526916000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJit-IOvsPMCFQAAAAAdAAAAABAD"
+    />
   </head>
   <body>
-    <h1 id="textField"></h1>
-    <a href="settings.html">Go here</a>
+    <div class="nav-container">
+      <h1 id="textField"></h1>
+      <div class="nav">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <div class="menu">
+          <li><a href="#" id="settings-button">Settings</a></li>
+          <li>
+            <div
+              class="snapchat-creative-kit-share"
+              data-theme="dark"
+              data-size="large"
+              data-text="false"
+              data-share-url="https://kachamukabe.com"
+            ></div>
+          </li>
+        </div>
+      </div>
+    </div>
     <div class="graph">
       <ul class="week"></ul>
       <ul class="age"></ul>
       <ul class="squares"></ul>
     </div>
-    <div id="myModal" class="modal">
+    <div id="settingsModal" class="modal closed">
       <div class="modal-content">
-        <p>Enter date of birth</p>
         <form id="myForm">
-          <input name="dob" type="date" placeholder="Enter date of birth" />
-          <input type="submit" value="Submit" />
+          <div class="modal-title">
+            <h3>Settings</h3>
+          </div>
+          <div class="form-holder">
+            <input
+              class="form-control"
+              placeholder="Name"
+              name="name"
+              id="name"
+              type="text"
+            />
+          </div>
+          <div class="form-holder">
+            <input
+              class="form-control"
+              type="date"
+              id="dob"
+              name="dob"
+              placeholder="DOB"
+            />
+          </div>
+          <div class="form-holder">
+            <input class="form-control" type="text" id="colors" name="colors" />
+          </div>
+          <div class="form-holder">
+            <input class="submit-button" type="submit" value="Submit" />
+          </div>
         </form>
+        <button class="close" id="close-button">✖</button>
       </div>
     </div>
-    <script>
-      let modal = document.getElementById("myModal");
-      const initCheck = async () => {
-        try {
-          let isSet = await isUserSet();
-          if (isSet) {
-            setScreen();
-          } else {
-            modal.style.display = "block";
-          }
-          console.log(isSet);
-          return isSet;
-        } catch (e) {
-          console.error(e);
-        }
-      };
-      (async () => {
-        try {
-          let userName = await getUserName();
-          document.getElementById("textField").innerText = `Hello, ${userName}`;
-        } catch (e) {
-          console.error(e);
-        }
-      })();
-      initCheck();
-      let dob;
-      const form = document.getElementById("myForm");
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        console.log("Test mmeeeee", event);
-        modal.style.display = "none";
-        console.log(form["dob"].value);
-        let record = await getSettings();
-        await updateDOB(record.Name, form["dob"].value, record.Colors);
-        setScreen();
-      });
-      const setScreen = async () => {
-        try {
-          let weeks = await getWeeksDone();
-          console.log(weeks);
-          const squares = document.querySelector(".squares");
-          for (var i = 0; i < weeks; i++) {
-            squares.insertAdjacentHTML(
-              "beforeend",
-              `<li data-level="done"></li>`
-            );
-          }
-          for (var i = 0; i < 4680 - weeks; i++) {
-            squares.insertAdjacentHTML(
-              "beforeend",
-              `<li data-level="incomplete"></li>`
-            );
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      };
-      const weeks = document.querySelector(".week");
-      for (var i = 1; i <= 52; i++) {
-        weeks.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
-      }
-      const ages = document.querySelector(".age");
-      for (var i = 0; i < 90; i++) {
-        ages.insertAdjacentHTML("beforeend", `<li>${i}</li>`);
-      }
-    </script>
+    <div class="modal-overlay closed" id="modal-overlay"></div>
+    <script src="main.js" type="text/javascript"></script>
   </body>
 </html>
