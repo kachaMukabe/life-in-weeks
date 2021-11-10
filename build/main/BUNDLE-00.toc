@@ -1,1 +1,0 @@
-([('main', '/Users/kacha/code/wip/yliw/dist/main', 'EXECUTABLE')],)
