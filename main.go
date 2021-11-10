@@ -132,11 +132,6 @@ func main() {
 	createSettings("settings.yaml")
 	createSettings("notes.yaml")
 
-	//config := Config{Record: Record{Name: "Kacha Mukabe", Colors: "#ee333"}}
-	//writeSettings(&config)
-
-	//readSettings()
-
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		log.Fatal(err)

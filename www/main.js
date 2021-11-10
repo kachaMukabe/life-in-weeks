@@ -5,7 +5,7 @@ let closeButton = document.getElementById("close-button");
 
 const initCheck = async () => {
   try {
-    let isSet = await isUserSet();
+    let isSet = await eel.is_user_set()();
     if (isSet) {
       setScreen();
     } else {
@@ -21,20 +21,11 @@ const initCheck = async () => {
 
 (async () => {
   try {
-    let details = await getSettings();
+    let details = await eel.read_settings()();
     document.getElementById("name").value = details.Name;
-    document.getElementById("dob").value = details.DOB.split("T")[0];
-    document.getElementById("colors").value = details.Colors;
-    console.log(details);
-  } catch (e) {
-    console.error(e);
-  }
-})();
-
-(async () => {
-  try {
-    let userName = await getUserName();
-    document.getElementById("textField").innerText = `Hello, ${userName}`;
+    document.getElementById("textField").innerText = `Hello, ${details.Name}`;
+    document.getElementById("dob").value = details.DOB;
+    //document.getElementById("colors").value = details.Colors;
   } catch (e) {
     console.error(e);
   }
@@ -59,14 +50,17 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   modal.classList.toggle("closed");
   modalOverlay.classList.toggle("closed");
-  await updateDOB(form["name"].value, form["dob"].value, form["colors"].value);
+  await eel.update_dob(
+    form["name"].value,
+    form["dob"].value,
+    ""
+  )();
 
   setScreen();
 });
 const setScreen = async () => {
   try {
-    let weeks = await getWeeksDone();
-    console.log(weeks);
+    let weeks = await eel.get_weeks_done()();
     const squares = document.querySelector(".squares");
     squares.innerHTML = "";
     for (var i = 0; i < weeks; i++) {
